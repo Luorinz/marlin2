@@ -1,5 +1,6 @@
 import marlin.Sandbox.Music1;
 import marlin.Sandbox.Music2;
+import marlin.Sandbox.Splines;
 import marlin.graphicsLib.Window;
 
 public class Main {
@@ -8,7 +9,8 @@ public class Main {
 //        Window.PANEL = new PaintInk();
 //        Window.PANEL = new ShapeTrainer();
 //        Window.PANEL = new SimpleReaction();
-        Window.PANEL = new Music2();
+//        Window.PANEL = new Music2();
+        Window.PANEL = new Splines();
         Window.launch();
 
     }

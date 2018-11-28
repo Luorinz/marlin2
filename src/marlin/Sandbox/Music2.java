@@ -97,6 +97,29 @@ public class Music2 extends Window implements I.MusicApp {
     static int[] yPoly = {50, 70, 80, 60};
     static Polygon poly = new Polygon(xPoly, yPoly, 4);
 
+    public void brace(int y1, int y2, int x, int h){ // draw the brace
+        G.poly.reset();
+        int yM = (y1 + y2) / 2;
+        int yh = 2 * h;
+        G.pSpline(x, y1+yh, x, y1, x+h, y1, 4); // top
+        G.pSpline(x+h+h, y1, x+h, y1, x+h, y1+yh, 4);
+        G.pSpline(x+h, yM-yh, x+h, yM, x, yM, 4); // mid
+        G.pSpline(x, yM, x+h, yM, x+h, yM+yh, 4);
+        G.pSpline(x+h, y2-yh, x+h, y2, x+h+h, y2, 4); //bottom
+        G.pSpline(x+h, y2, x, y2, x, y2-yh, 4);
+        G.pSpline(x, yM+yh, x, yM, x-h, yM, 4); // mid
+        G.pSpline(x-h, yM, x, yM, x, yM-yh, 4);
+    }
+
+    public void tie(int x1, int x2, int y, int h, int b) { // draw the tie between notes
+        //b : bend
+        G.poly.reset();
+        int xm = (x1 + x2) / 2 ;
+        G.pSpline(x1, y, xm, y+b+h, x2, y, 4); // bot
+        G.pSpline(x2, y, xm, y+b, x1, y, 4); // top
+
+    }
+
     @Override
     public void paintComponent(Graphics g) {
         G.fillBackground(g, Color.WHITE);
@@ -108,9 +131,11 @@ public class Music2 extends Window implements I.MusicApp {
         Beam.drawBeamStack(g, 0, 1, x1, x2, h);
         g.setColor(Color.RED);
         Beam.drawBeamStack(g, 1, 3, x1 + 20, x2 - 20, h);
-//    Glyph.CLEF_G.showAt(g, h, 100, PAGE.top + 4 * h);
-//    Glyph.HEAD_Q.showAt(g, h, 180, PAGE.top + 4 * h); // xStem == 200?
-//    g.drawRect(180, PAGE.top + 3 * h, 243 * h / 100, 2 * h);
+
+        // test tie
+        tie(500, 600, 500, 10, -20);
+        g.fillPolygon(G.poly);
+
     }
 
     @Override
